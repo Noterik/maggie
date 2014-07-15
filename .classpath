@@ -11,7 +11,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/lou/WebContent/WEB-INF/lib/mojo.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/Mojo/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-codec-1.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.0.4.jar"/>
@@ -21,14 +20,10 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jdom-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.osgi.core-4.0.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.restlet-2.0.10.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.restlet.ext.servlet-2.0.10.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.restlet.ext.xml-2.0.10.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xalan-2.6.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xercesImpl-2.6.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xmlParserAPIs-2.6.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xom-1.0.jar"/>
-	<classpathentry kind="lib" path="/Users/scb2/Documents/workspace_github/bart/WebContent/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
