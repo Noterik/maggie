@@ -45,20 +45,10 @@ public class MaggieLoadThread extends Thread{
 		String provider = ml.getNextProvider();
 		while (provider!=null) {
 			FSListManager.add(url+provider+"/video",fslist);
-			System.out.println(tnumber+" DONE ADDING VIDEO TO CACHE="+url+provider+"/video "+fslist.size());
-	
 			FSListManager.add(url+provider+"/audio",fslist);
-			System.out.println(tnumber+" DONE ADDING AUDIO TO CACHE="+url+provider+"/audio "+fslist.size());
-			
 			FSListManager.add(url+provider+"/series",fslist);
-			System.out.println(tnumber+" DONE ADDING SERIES TO CACHE="+url+provider+"/series "+fslist.size());
-			
 			FSListManager.add(url+provider+"/picture",fslist);
-			System.out.println(tnumber+" DONE ADDING PICTURE TO CACHE="+url+provider+"/picture "+fslist.size());
-			
 			FSListManager.add(url+provider+"/doc",fslist);
-			System.out.println(tnumber+" DONE ADDING DOC TO CACHE="+url+provider+"/doc "+fslist.size());
-	
 			provider = ml.getNextProvider();
 		}
 		System.out.println("Maggie thread ("+tnumber+") done");
