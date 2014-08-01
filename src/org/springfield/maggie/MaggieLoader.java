@@ -62,9 +62,32 @@ public class MaggieLoader extends Thread {
 			String provider = providers.get(0);
 			providers.remove(0);
 			System.out.println("PROVIDERS LEFT="+providers.size());
+
 			return provider;
+		} else {
+			extendIndex();
 		}
 		return null;
+	}
+	
+	public void extendIndex() {
+		String uri = "/domain/euscreenxl/user/*/*"; // does this make sense, new way of mapping (daniel)
+		FSList fslist = FSListManager.get(uri);
+		List<FsNode> nodes = fslist.getNodes();
+		
+		for(Iterator<FsNode> iter = nodes.iterator() ; iter.hasNext(); ) {
+			FsNode n = (FsNode)iter.next();	
+			String title = n.getProperty("TitleSet_TitleSetInEnglish_title");
+			if (title!=null) {
+				String newtitle = title;
+				if (newtitle.indexOf("\"")==0) {
+					newtitle = newtitle.substring(1);
+				} else	if (newtitle.indexOf("'")==0) {
+					newtitle = newtitle.substring(1);
+				}
+				n.setProperty("sort_title",newtitle);
+			}
+		}
 	}
 
 	
