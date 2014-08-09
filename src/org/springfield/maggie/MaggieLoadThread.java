@@ -52,6 +52,6 @@ public class MaggieLoadThread extends Thread{
 			provider = ml.getNextProvider();
 		}
 		System.out.println("Maggie thread ("+tnumber+") done");
-
+		ml.signalDone();
 	}
 }

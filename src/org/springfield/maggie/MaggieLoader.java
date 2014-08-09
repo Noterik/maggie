@@ -29,6 +29,7 @@ public class MaggieLoader extends Thread {
 	
 	private ArrayList<String> providers = new ArrayList<String>();
 	private static Object obj = new Object();
+	private static int done = 0;
 	
 	public MaggieLoader() {
 		providers.add("nisv");
@@ -62,15 +63,13 @@ public class MaggieLoader extends Thread {
 			String provider = providers.get(0);
 			providers.remove(0);
 			System.out.println("PROVIDERS LEFT="+providers.size());
-
 			return provider;
-		} else {
-			extendIndex();
 		}
 		return null;
 	}
 	
 	public void extendIndex() {
+		System.out.println("extend index");
 		String uri = "/domain/euscreenxl/user/*/*"; // does this make sense, new way of mapping (daniel)
 		FSList fslist = FSListManager.get(uri);
 		List<FsNode> nodes = fslist.getNodes();
@@ -87,6 +86,13 @@ public class MaggieLoader extends Thread {
 				}
 				n.setProperty("sort_title",newtitle);
 			}
+		}
+	}
+	
+	public void signalDone() {
+		done++;
+		if (done>3) {
+			extendIndex();
 		}
 	}
 
