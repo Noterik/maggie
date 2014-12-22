@@ -30,8 +30,11 @@ public class MaggieLoader extends Thread {
 	private ArrayList<String> providers = new ArrayList<String>();
 	private static Object obj = new Object();
 	private static int done = 0;
+	private static MaggieUpdateThread updatethread = null;
 	
 	public MaggieLoader() {
+		updatethread = new MaggieUpdateThread();
+		providers.add("agency");
 		providers.add("nisv");
 		providers.add("dw");
 		providers.add("lcva");

@@ -20,8 +20,12 @@
 */
 package org.springfield.maggie;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springfield.fs.FSList;
 import org.springfield.fs.FSListManager;
+import org.springfield.fs.FsNode;
 
 public class MaggieLoadThread extends Thread{
 	private MaggieLoader ml;
@@ -49,9 +53,51 @@ public class MaggieLoadThread extends Thread{
 			FSListManager.add(url+provider+"/series",fslist);
 			FSListManager.add(url+provider+"/picture",fslist);
 			FSListManager.add(url+provider+"/doc",fslist);
+			FSListManager.add(url+provider+"/teaser",fslist);
+			FSListManager.add(url+provider+"/collection",fslist);
+			orderEpisodes(fslist);
 			provider = ml.getNextProvider();
 		}
 		System.out.println("Maggie thread ("+tnumber+") done");
 		ml.signalDone();
+	}
+	
+	private void orderEpisodes(FSList fslist) {
+		int basecounter = 1;
+		List<FsNode> nodes = fslist.getNodes();
+		for(Iterator<FsNode> iter = nodes.iterator() ; iter.hasNext(); ) {
+			// get the next node
+			FsNode n = (FsNode)iter.next();
+			int value = basecounter++;
+			int evalue = -1;
+			int svalue = -1;
+			try {
+				String tmp = n.getProperty("episodeNumber");
+				if (tmp!=null) {
+					tmp = tmp.replace("OC", "00");
+					System.out.println("EPI="+tmp);
+					evalue = Integer.parseInt(tmp);
+				}
+			} catch(Exception e) {}
+			try {
+				String tmp = n.getProperty("Series/season");
+				if (tmp!=null) {
+					System.out.println("SEA="+tmp);
+					svalue = Integer.parseInt(tmp);
+				}
+			} catch(Exception e) {}
+			
+			if (evalue!=-1) {
+				if (svalue!=-1) {
+					value = evalue*10000;
+					value += svalue*1000000;
+				} else {
+					value = evalue*10000;
+				}
+			} 
+			
+			String valueString = String.format("%010d", value);
+			n.setProperty("ordervalue", valueString);
+		}
 	}
 }
