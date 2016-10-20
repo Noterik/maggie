@@ -79,6 +79,26 @@ public class MaggieLoader extends Thread {
 		
 		for(Iterator<FsNode> iter = nodes.iterator() ; iter.hasNext(); ) {
 			FsNode n = (FsNode)iter.next();	
+			//System.out.println("NODE="+n.asXML());
+			// check for publisherbroadcaster changes needed
+			String pb = n.getProperty("provider");
+			if (pb!=null) {
+			if (pb.equals("DW")) {
+				n.setProperty("provider", "Deutsche Welle");
+			} else 	if (pb.equals("KB")) {
+				n.setProperty("provider", "Kungliga biblioteket");
+			} else 	if (pb.equals("NINA")) {
+				n.setProperty("provider", "Narodowy Instytut Audiowizualny");
+			} else 	if (pb.equals("SASE")) {
+				n.setProperty("provider", "Screen Archive South East");
+			} else 	if (pb.equals("NISV")) {
+				n.setProperty("provider", "Netherlands Institute for Sound and Vision");
+			}
+				System.out.println("provider="+n.getProperty("provider"));
+			} else {
+				System.out.println("EMPTY PROVIDER NAME="+n.getId());
+			}
+			
 			String title = n.getProperty("TitleSet_TitleSetInEnglish_title");
 			if (title!=null) {
 				String newtitle = title;
@@ -94,6 +114,7 @@ public class MaggieLoader extends Thread {
 	
 	public void signalDone() {
 		done++;
+		System.out.println("DONE SIGNAL AT "+done);
 		if (done>3) {
 			extendIndex();
 		}

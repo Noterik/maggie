@@ -55,7 +55,7 @@ public class MaggieLoadThread extends Thread{
 			FSListManager.add(url+provider+"/doc",fslist);
 			FSListManager.add(url+provider+"/teaser",fslist);
 			FSListManager.add(url+provider+"/collection",fslist);
-			orderEpisodes(fslist);
+			//orderEpisodes(fslist);
 			provider = ml.getNextProvider();
 		}
 		System.out.println("Maggie thread ("+tnumber+") done");
