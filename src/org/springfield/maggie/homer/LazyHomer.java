@@ -77,6 +77,7 @@ public class LazyHomer implements MargeObserver {
 		retryCounter = 0;
 		initConfig();
 		initLogger();
+		
 		try{
 			InetAddress mip=InetAddress.getLocalHost();
 			myip = ""+mip.getHostAddress();
@@ -84,14 +85,14 @@ public class LazyHomer implements MargeObserver {
 			LOG.error("Exception ="+e.getMessage());
 		}
 		LOG.info("Maggie init service name = maggie on ipnumber = "+myip+" on marge port "+port);
+		System.out.println("Maggie init service name = maggie on ipnumber = "+myip+" on marge port "+port);
 		marge = new LazyMarge();
 		
 		// lets watch for changes in the service nodes in smithers
 		marge.addObserver("/domain/internal/service/maggie/nodes/"+myip, ins);
 		marge.addTimedObserver("/smithers/downcheck",6,this);
 		new DiscoveryThread();	
-	}
-	
+	}	
 
 	public static void addSmithers(String ipnumber,String port,String mport,String role) {
 			int oldsize = smithers.size();
@@ -113,7 +114,7 @@ public class LazyHomer implements MargeObserver {
 				sp.setPort(port);
 				sp.setAlive(true); // since talking its alive 
 				noreply = false; // stop asking (minimum of 60 sec, delayed)
-				LOG.info("lou found smithers at = "+ipnumber+" port="+port+" multicast="+mport);
+				LOG.info("maggie found smithers at = "+ipnumber+" port="+port+" multicast="+mport);
 				System.out.println("maggie found smithers at = "+ipnumber+" port="+port+" multicast="+mport);
 			} else {
 				if (!sp.isAlive()) {
@@ -170,7 +171,8 @@ public class LazyHomer implements MargeObserver {
 	
 	private Boolean checkKnown() {
 	//	System.out.println("MYIP="+myip+" SM="+selectedsmithers);
-
+		LOG.info("Maggie checkKnown()");
+			
 		String xml = "<fsxml><properties><depth>1</depth></properties></fsxml>";
 		//String nodes = LazyHomer.sendRequest("GET","/domain/internal/service/maggie/nodes",xml,"text/xml");
 		ServiceInterface smithers = ServiceManager.getService("smithers");
@@ -222,6 +224,7 @@ public class LazyHomer implements MargeObserver {
 			if (!foundmynode) {
 				if (retryCounter < 30) {
 					//retry 30 times (= 5 min) to handle temp smithers downtime (eg daily restarts)
+					LOG.info("Retrycounter maggie = "+retryCounter);
 					retryCounter++;
 				} else {
 					LOG.info("LazyHomer : Creating my processing node "+LazyHomer.getSmithersUrl()  + "/domain/internal/service/maggie/properties");
@@ -489,7 +492,7 @@ public class LazyHomer implements MargeObserver {
 	    public void run() {
 	     int counter = 0;
 	      while (LazyHomer.noreply || counter<10) {
-	    	//if (counter>4 && LazyHomer.noreply) LOG.info("Bart: Still looking for smithers on multicast port "+port+" ("+LazyHomer.noreply+")");
+	    	if (counter>4 && LazyHomer.noreply) LOG.info("Still looking for smithers on multicast port "+port+" ("+LazyHomer.noreply+")");
 	    	LazyHomer.send("INFO","/domain/internal/service/getname");
 	        try {
 	          sleep(500+(counter*100));
@@ -498,7 +501,7 @@ public class LazyHomer implements MargeObserver {
 	          throw new RuntimeException(e);
 	        }
 	      }
-	     // LOG.info("Bart: Stopped looking for new smithers");
+	      LOG.info("Stopped looking for new smithers");
 	    }
 	}
 	

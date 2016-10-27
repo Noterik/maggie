@@ -83,18 +83,20 @@ public class MaggieLoader extends Thread {
 			// check for publisherbroadcaster changes needed
 			String pb = n.getProperty("provider");
 			if (pb!=null) {
-			if (pb.equals("DW")) {
-				n.setProperty("provider", "Deutsche Welle");
-			} else 	if (pb.equals("KB")) {
-				n.setProperty("provider", "Kungliga biblioteket");
-			} else 	if (pb.equals("NINA")) {
-				n.setProperty("provider", "Narodowy Instytut Audiowizualny");
-			} else 	if (pb.equals("SASE")) {
-				n.setProperty("provider", "Screen Archive South East");
-			} else 	if (pb.equals("NISV")) {
-				n.setProperty("provider", "Netherlands Institute for Sound and Vision");
-			}
-				System.out.println("provider="+n.getProperty("provider"));
+        			if (pb.equals("KB")) {
+        				n.setProperty("provider", "Kungliga biblioteket");
+        			} else if (pb.equals("NINA")) {
+        				n.setProperty("provider", "Narodowy Instytut Audiowizualny");
+        			} else if (pb.equals("TVC")) {
+        			    	n.setProperty("provider", "TV3 Televisió de Catalunya (TVC)");
+        			} else if (pb.equals("SASE")) {
+    					n.setProperty("provider", "Screen Archive South East");
+        			} else if (pb.equals("NISV")) {
+    					n.setProperty("provider", "Netherlands Institute for Sound and Vision");
+        			} else if (pb.equals("DW")) {
+    					n.setProperty("provider", "Deutsche Welle");
+        			}
+        			System.out.println("provider="+n.getProperty("provider"));
 			} else {
 				System.out.println("EMPTY PROVIDER NAME="+n.getId());
 			}
