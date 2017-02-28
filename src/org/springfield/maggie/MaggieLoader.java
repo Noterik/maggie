@@ -58,6 +58,7 @@ public class MaggieLoader extends Thread {
 		providers.add("bbc");
 		providers.add("vrt");
 		providers.add("tvp");
+		providers.add("memoriav_srf");
 		start();
 	}
 	
