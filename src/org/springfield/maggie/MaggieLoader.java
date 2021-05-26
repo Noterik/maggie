@@ -59,6 +59,7 @@ public class MaggieLoader extends Thread {
 		providers.add("vrt");
 		providers.add("tvp");
 		providers.add("memoriav_srf");
+		providers.add("memoriav_rts");
 		start();
 	}
 	
@@ -87,7 +88,7 @@ public class MaggieLoader extends Thread {
         			if (pb.equals("KB")) {
         				n.setProperty("provider", "Kungliga biblioteket");
         			} else if (pb.equals("NINA")) {
-        				n.setProperty("provider", "Narodowy Instytut Audiowizualny");
+        				n.setProperty("provider", "FINA");
         			} else if (pb.equals("TVC")) {
         			    	n.setProperty("provider", "TV3 Televisió de Catalunya (TVC)");
         			} else if (pb.equals("SASE")) {
